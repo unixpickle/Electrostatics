@@ -1,0 +1,282 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		FA84186516CF2A41003CD19C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA84186416CF2A41003CD19C /* UIKit.framework */; };
+		FA84186716CF2A41003CD19C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA84186616CF2A41003CD19C /* Foundation.framework */; };
+		FA84186916CF2A41003CD19C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA84186816CF2A41003CD19C /* CoreGraphics.framework */; };
+		FA84186F16CF2A41003CD19C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA84186D16CF2A41003CD19C /* InfoPlist.strings */; };
+		FA84187116CF2A41003CD19C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FA84187016CF2A41003CD19C /* main.m */; };
+		FA84187516CF2A41003CD19C /* ANAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FA84187416CF2A41003CD19C /* ANAppDelegate.m */; };
+		FA84187716CF2A41003CD19C /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = FA84187616CF2A41003CD19C /* Default.png */; };
+		FA84187916CF2A41003CD19C /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA84187816CF2A41003CD19C /* Default@2x.png */; };
+		FA84187B16CF2A41003CD19C /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA84187A16CF2A41003CD19C /* Default-568h@2x.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		FA84186016CF2A41003CD19C /* Electrostatics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Electrostatics.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA84186416CF2A41003CD19C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		FA84186616CF2A41003CD19C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		FA84186816CF2A41003CD19C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		FA84186C16CF2A41003CD19C /* Electrostatics-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Electrostatics-Info.plist"; sourceTree = "<group>"; };
+		FA84186E16CF2A41003CD19C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		FA84187016CF2A41003CD19C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		FA84187216CF2A41003CD19C /* Electrostatics-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Electrostatics-Prefix.pch"; sourceTree = "<group>"; };
+		FA84187316CF2A41003CD19C /* ANAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANAppDelegate.h; sourceTree = "<group>"; };
+		FA84187416CF2A41003CD19C /* ANAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANAppDelegate.m; sourceTree = "<group>"; };
+		FA84187616CF2A41003CD19C /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		FA84187816CF2A41003CD19C /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		FA84187A16CF2A41003CD19C /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FA84185D16CF2A41003CD19C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA84186516CF2A41003CD19C /* UIKit.framework in Frameworks */,
+				FA84186716CF2A41003CD19C /* Foundation.framework in Frameworks */,
+				FA84186916CF2A41003CD19C /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FA84185516CF2A41003CD19C = {
+			isa = PBXGroup;
+			children = (
+				FA84186A16CF2A41003CD19C /* Electrostatics */,
+				FA84186316CF2A41003CD19C /* Frameworks */,
+				FA84186116CF2A41003CD19C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		FA84186116CF2A41003CD19C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FA84186016CF2A41003CD19C /* Electrostatics.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FA84186316CF2A41003CD19C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FA84186416CF2A41003CD19C /* UIKit.framework */,
+				FA84186616CF2A41003CD19C /* Foundation.framework */,
+				FA84186816CF2A41003CD19C /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FA84186A16CF2A41003CD19C /* Electrostatics */ = {
+			isa = PBXGroup;
+			children = (
+				FA84187316CF2A41003CD19C /* ANAppDelegate.h */,
+				FA84187416CF2A41003CD19C /* ANAppDelegate.m */,
+				FA84186B16CF2A41003CD19C /* Supporting Files */,
+			);
+			path = Electrostatics;
+			sourceTree = "<group>";
+		};
+		FA84186B16CF2A41003CD19C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				FA84186C16CF2A41003CD19C /* Electrostatics-Info.plist */,
+				FA84186D16CF2A41003CD19C /* InfoPlist.strings */,
+				FA84187016CF2A41003CD19C /* main.m */,
+				FA84187216CF2A41003CD19C /* Electrostatics-Prefix.pch */,
+				FA84187616CF2A41003CD19C /* Default.png */,
+				FA84187816CF2A41003CD19C /* Default@2x.png */,
+				FA84187A16CF2A41003CD19C /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FA84185F16CF2A41003CD19C /* Electrostatics */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FA84187E16CF2A41003CD19C /* Build configuration list for PBXNativeTarget "Electrostatics" */;
+			buildPhases = (
+				FA84185C16CF2A41003CD19C /* Sources */,
+				FA84185D16CF2A41003CD19C /* Frameworks */,
+				FA84185E16CF2A41003CD19C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Electrostatics;
+			productName = Electrostatics;
+			productReference = FA84186016CF2A41003CD19C /* Electrostatics.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FA84185716CF2A41003CD19C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = AN;
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = "Alex Nichol";
+			};
+			buildConfigurationList = FA84185A16CF2A41003CD19C /* Build configuration list for PBXProject "Electrostatics" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = FA84185516CF2A41003CD19C;
+			productRefGroup = FA84186116CF2A41003CD19C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FA84185F16CF2A41003CD19C /* Electrostatics */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FA84185E16CF2A41003CD19C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA84186F16CF2A41003CD19C /* InfoPlist.strings in Resources */,
+				FA84187716CF2A41003CD19C /* Default.png in Resources */,
+				FA84187916CF2A41003CD19C /* Default@2x.png in Resources */,
+				FA84187B16CF2A41003CD19C /* Default-568h@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FA84185C16CF2A41003CD19C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA84187116CF2A41003CD19C /* main.m in Sources */,
+				FA84187516CF2A41003CD19C /* ANAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		FA84186D16CF2A41003CD19C /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FA84186E16CF2A41003CD19C /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		FA84187C16CF2A41003CD19C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		FA84187D16CF2A41003CD19C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		FA84187F16CF2A41003CD19C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Electrostatics/Electrostatics-Prefix.pch";
+				INFOPLIST_FILE = "Electrostatics/Electrostatics-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		FA84188016CF2A41003CD19C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Electrostatics/Electrostatics-Prefix.pch";
+				INFOPLIST_FILE = "Electrostatics/Electrostatics-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FA84185A16CF2A41003CD19C /* Build configuration list for PBXProject "Electrostatics" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA84187C16CF2A41003CD19C /* Debug */,
+				FA84187D16CF2A41003CD19C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FA84187E16CF2A41003CD19C /* Build configuration list for PBXNativeTarget "Electrostatics" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA84187F16CF2A41003CD19C /* Debug */,
+				FA84188016CF2A41003CD19C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = FA84185716CF2A41003CD19C /* Project object */;
+}
