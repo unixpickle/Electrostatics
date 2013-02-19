@@ -10,11 +10,18 @@
 
 @implementation ANAppDelegate
 
+@synthesize homeview;
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
+
+    homeview = [[ANHomeViewController alloc] init];
+    [self.window addSubview:homeview.view];
+    
     self.window.backgroundColor = [UIColor whiteColor];
+    self.window.rootViewController = homeview;
+    
     [self.window makeKeyAndVisible];
     return YES;
 }

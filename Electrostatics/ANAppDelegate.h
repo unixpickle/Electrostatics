@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ANHomeViewController.h"
 
-@interface ANAppDelegate : UIResponder <UIApplicationDelegate>
+@interface ANAppDelegate : UIResponder <UIApplicationDelegate> {
+    ANHomeViewController * homeview;
+}
 
-@property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) UIWindow * window;
+@property (readonly) ANHomeViewController * homeview;
 
 @end
