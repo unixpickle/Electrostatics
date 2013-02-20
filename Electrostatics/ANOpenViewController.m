@@ -32,6 +32,8 @@
         
         manager = [ANDocumentManager sharedDocumentManager];
         
+        self.tableView.allowsSelectionDuringEditing = YES;
+        
         self.title = @"Open";
     }
     return self;
@@ -53,6 +55,10 @@
 
 - (void)doneButtonPressed:(id)sender {
     [self.parentViewController dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [self.tableView reloadData];
 }
 
 #pragma mark - Table view data source
@@ -116,7 +122,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([tableView isEditing]) {
-        NSLog(@"TODO: create an edit view controller or something");
+        ANDocumentInfo * info = [manager.documents objectAtIndex:indexPath.row];
+        ANRenameViewController * rvc = [[ANRenameViewController alloc] initWithDocumentInfo:info];
+        [self.navigationController pushViewController:rvc animated:YES];
     } else {
         ANDocumentInfo * info = [manager.documents objectAtIndex:indexPath.row];
         ANDocumentViewController * vc = [[ANDocumentViewController alloc] initWithDocumentInfo:info];

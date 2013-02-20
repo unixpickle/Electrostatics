@@ -20,21 +20,34 @@
     if ((self = [super initWithStyle:UITableViewStyleGrouped])) {
         particle = aParticle;
         self.title = @"Particle Editor";
-        xVelocity = [[UITextField alloc] initWithFrame:CGRectMake(100, 10, 95, 30)];
+        xVelocity = [[ANSelectableTextField alloc] initWithFrame:CGRectMake(100, 10, 95, 30)];
         xVelocity.returnKeyType = UIReturnKeyNext;
         xVelocity.textColor = [UIColor blackColor];
-        yVelocity = [[UITextField alloc] initWithFrame:CGRectMake(100, 10, 95, 30)];
+        yVelocity = [[ANSelectableTextField alloc] initWithFrame:CGRectMake(100, 10, 95, 30)];
         yVelocity.returnKeyType = UIReturnKeyNext;
         yVelocity.textColor = [UIColor blackColor];
-        mass = [[UITextField alloc] initWithFrame:CGRectMake(100, 10, 95, 30)];
+        mass = [[ANSelectableTextField alloc] initWithFrame:CGRectMake(100, 10, 95, 30)];
         mass.returnKeyType = UIReturnKeyNext;
         mass.textColor = [UIColor blackColor];
+        
+        deleteButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        deleteButton.frame = CGRectMake(0, 0, 300, 44);
+        deleteButton.titleLabel.font = [UIFont boldSystemFontOfSize:18];
+        [deleteButton addTarget:self
+                         action:@selector(deleteButtonPressed:)
+               forControlEvents:UIControlEventTouchUpInside];
+        [deleteButton setTitle:@"Delete" forState:UIControlStateNormal];
+
         
         xVelocity.text = [NSString stringWithFormat:@"%0.02f", particle.velocityX];
         yVelocity.text = [NSString stringWithFormat:@"%0.02f", particle.velocityY];
         mass.text = [NSString stringWithFormat:@"%0.02f", particle.constant];
     }
     return self;
+}
+
+- (void)deleteButtonPressed:(id)sender {
+    [delegate particleViewController:self deleteParticle:particle];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -45,14 +58,24 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    if (section == 0) return 3;
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 1) {
+        UITableViewCell * buttonCell = [tableView dequeueReusableCellWithIdentifier:@"ButtonCell"];
+        if (!buttonCell) {
+            buttonCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ButtonCell"];
+        }
+        [buttonCell.contentView addSubview:deleteButton];
+        buttonCell.selectionStyle = UITableViewCellEditingStyleNone;
+        return buttonCell;
+    }
     static NSString * CellIdentifier = @"Cell";
     UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     

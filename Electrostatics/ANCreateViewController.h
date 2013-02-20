@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ANDocumentManager.h"
 #import "ANDocumentViewController.h"
+#import "ANSelectableTextField.h"
 
 @interface ANCreateViewController : UITableViewController <UITextFieldDelegate> {
     UIBarButtonItem * createButton;

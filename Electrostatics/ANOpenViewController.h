@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ANDocumentManager.h"
 #import "ANDocumentViewController.h"
+#import "ANRenameViewController.h"
 
 @interface ANOpenViewController : UITableViewController {
     ANDocumentManager * manager;

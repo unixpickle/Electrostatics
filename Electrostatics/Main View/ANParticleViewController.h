@@ -8,12 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "ANParticle.h"
+#import "ANSelectableTextField.h"
 
 @class ANParticleViewController;
 
 @protocol ANParticleViewControllerDelegate <NSObject>
 
 - (void)particleViewControllerDismissed:(ANParticleViewController *)pvc;
+- (void)particleViewController:(ANParticleViewController *)pvc deleteParticle:(ANParticle *)particle;
 
 @end
 
@@ -21,6 +23,7 @@
     UITextField * xVelocity;
     UITextField * yVelocity;
     UITextField * mass;
+    UIButton * deleteButton;
     ANParticle * particle;
     
     __weak id<ANParticleViewControllerDelegate> delegate;
@@ -29,5 +32,6 @@
 @property (nonatomic, weak) id<ANParticleViewControllerDelegate> delegate;
 
 - (id)initWithParticle:(ANParticle *)particle;
+- (void)deleteButtonPressed:(id)sender;
 
 @end

@@ -113,13 +113,24 @@
 
 - (void)sceneView:(ANSceneView *)sceneView editingParticle:(ANParticle *)particle {
     ANParticleViewController * pvc = [[ANParticleViewController alloc] initWithParticle:particle];
-    //[self presentViewController:pvc animated:YES completion:NULL];
+    pvc.delegate = self;
     [self.navigationController pushViewController:pvc animated:YES];
 }
 
 - (void)particleViewControllerDismissed:(ANParticleViewController *)pvc {
     //[self dismissViewControllerAnimated:YES completion:NULL];
     [sceneView setNeedsDisplay];
+}
+
+- (void)particleViewController:(ANParticleViewController *)pvc deleteParticle:(ANParticle *)particle {
+    for (int i = 0; i < [liveParticles count]; i++) {
+        if ([[liveParticles objectAtIndex:i] baseParticle] == particle) {
+            [liveParticles removeObjectAtIndex:i];
+            break;
+        }
+    }
+    [sceneView setNeedsDisplay];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - Private -

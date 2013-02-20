@@ -30,6 +30,8 @@
 		FA84189216CF2D3B003CD19C /* ANParticle.m in Sources */ = {isa = PBXBuildFile; fileRef = FA84189016CF2D3B003CD19C /* ANParticle.m */; };
 		FA84189716CF2F08003CD19C /* ANVector2D.m in Sources */ = {isa = PBXBuildFile; fileRef = FA84189616CF2F08003CD19C /* ANVector2D.m */; };
 		FACFF98216D309650067BE54 /* ANParticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FACFF98116D309650067BE54 /* ANParticleViewController.m */; };
+		FAFE68A316D44926008CD6C9 /* ANSelectableTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = FAFE68A216D44926008CD6C9 /* ANSelectableTextField.m */; };
+		FAFE68A616D44D14008CD6C9 /* ANRenameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAFE68A516D44D14008CD6C9 /* ANRenameViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +73,10 @@
 		FA84189616CF2F08003CD19C /* ANVector2D.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANVector2D.m; sourceTree = "<group>"; };
 		FACFF98016D309650067BE54 /* ANParticleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANParticleViewController.h; sourceTree = "<group>"; };
 		FACFF98116D309650067BE54 /* ANParticleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANParticleViewController.m; sourceTree = "<group>"; };
+		FAFE68A116D44926008CD6C9 /* ANSelectableTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANSelectableTextField.h; sourceTree = "<group>"; };
+		FAFE68A216D44926008CD6C9 /* ANSelectableTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANSelectableTextField.m; sourceTree = "<group>"; };
+		FAFE68A416D44D14008CD6C9 /* ANRenameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANRenameViewController.h; sourceTree = "<group>"; };
+		FAFE68A516D44D14008CD6C9 /* ANRenameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANRenameViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +160,10 @@
 				FA2B9CC616D2CE6B00F962D7 /* ANOpenViewController.m */,
 				FA2B9CC816D2D47300F962D7 /* ANCreateViewController.h */,
 				FA2B9CC916D2D47300F962D7 /* ANCreateViewController.m */,
+				FAFE68A416D44D14008CD6C9 /* ANRenameViewController.h */,
+				FAFE68A516D44D14008CD6C9 /* ANRenameViewController.m */,
+				FAFE68A116D44926008CD6C9 /* ANSelectableTextField.h */,
+				FAFE68A216D44926008CD6C9 /* ANSelectableTextField.m */,
 				FA84186B16CF2A41003CD19C /* Supporting Files */,
 			);
 			path = Electrostatics;
@@ -269,6 +279,8 @@
 				FA2B9CD516D2E0E300F962D7 /* ANLiveParticle.m in Sources */,
 				FA2B9CD816D2E91200F962D7 /* ANSceneView.m in Sources */,
 				FACFF98216D309650067BE54 /* ANParticleViewController.m in Sources */,
+				FAFE68A316D44926008CD6C9 /* ANSelectableTextField.m in Sources */,
+				FAFE68A616D44D14008CD6C9 /* ANRenameViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
