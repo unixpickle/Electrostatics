@@ -95,7 +95,7 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [tableView beginUpdates];
         [manager deleteDocument:[manager.documents objectAtIndex:indexPath.row]];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
         [tableView endUpdates];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
     }

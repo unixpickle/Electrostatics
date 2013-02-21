@@ -10,6 +10,7 @@
 
 @implementation ANAppDelegate
 
+@synthesize window;
 @synthesize homeview;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions

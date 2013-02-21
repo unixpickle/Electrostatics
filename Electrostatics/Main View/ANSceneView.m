@@ -31,6 +31,7 @@
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    touchStart = nil;
     UITouch * touch = [touches anyObject];
     
     CGPoint location = [[touches anyObject] locationInView:self];
@@ -45,6 +46,7 @@
         }
     }
     if (!particle) return;
+    touchStart = [NSDate date];
     if (touch.tapCount == 1) {
         selectedParticle = particle;
         particle.isHighlighted = YES;
@@ -57,6 +59,14 @@
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+    if (touchStart) {
+        if ([[NSDate date] timeIntervalSinceDate:touchStart] > 1) {
+            isDraggingVector = YES;
+        } else {
+            isDraggingVector = NO;
+        }
+        touchStart = nil;
+    }
     if (selectedParticle) {
         CGPoint touchPoint = [[touches anyObject] locationInView:self];
         CGPoint newPoint = particleBeginning;
@@ -69,6 +79,7 @@
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    touchStart = nil;
     selectedParticle.isHighlighted = NO;
     selectedParticle = nil;
     [self setNeedsDisplay];

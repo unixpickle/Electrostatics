@@ -24,6 +24,10 @@
     CGPoint selectionBeginning;
     CGPoint particleBeginning;
     
+    NSDate * touchStart;
+    BOOL isDraggingVector;
+    
+    
     __weak id<ANSceneViewDelegate> delegate;
 }
 
