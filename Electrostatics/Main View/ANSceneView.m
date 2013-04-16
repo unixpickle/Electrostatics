@@ -43,6 +43,7 @@
 - (void)drawRect:(CGRect)rect {
     CGContextRef context = UIGraphicsGetCurrentContext();
     for (ANLiveSpring * spring in springsReference) {   
+        [spring drawInContext:context];
     }
     for (ANLiveParticle * particle in particlesReference) {
         [particle drawRect:rect context:context];
