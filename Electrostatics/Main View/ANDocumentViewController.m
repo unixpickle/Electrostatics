@@ -87,6 +87,7 @@
 }
 
 - (void)playButtonPressed:(id)sender {
+    sceneView.isAnimating = YES;
     [toolbar setItems:[NSArray arrayWithObjects:stopButton, spaceItem, addButton, nil] animated:YES];
     lastTick = nil;
     animationTimer = [NSTimer scheduledTimerWithTimeInterval:(1.0 / 60.0)
@@ -101,6 +102,7 @@
 }
 
 - (void)stopButtonPressed:(id)sender {
+    sceneView.isAnimating = NO;
     [toolbar setItems:[NSArray arrayWithObjects:playButton, spaceItem, addButton, nil] animated:YES];
     for (ANLiveParticle * particle in liveParticles) {
         [particle resignActivityAndReset];
@@ -109,13 +111,24 @@
     [animationTimer invalidate];
 }
 
-#pragma mark - Particle Editing -
+- (void)viewWillDisappear:(BOOL)animated {
+    if (!animationTimer) return;
+    [self stopButtonPressed:nil];
+}
+
+#pragma mark - Scene View -
 
 - (void)sceneView:(ANSceneView *)sceneView editingParticle:(ANParticle *)particle {
     ANParticleViewController * pvc = [[ANParticleViewController alloc] initWithParticle:particle];
     pvc.delegate = self;
     [self.navigationController pushViewController:pvc animated:YES];
 }
+
+- (void)sceneView:(ANSceneView *)sceneView springFrom:(ANParticle *)source to:(ANParticle *)dest {
+    
+}
+
+#pragma mark - Particle Editing -
 
 - (void)particleViewControllerDismissed:(ANParticleViewController *)pvc {
     //[self dismissViewControllerAnimated:YES completion:NULL];
@@ -169,8 +182,10 @@
             netForce = ANVector2DAdd(netForce, anotherForce);
         }
         ANLiveParticleActive active = particle.activeState;
-        active.activeVelocity.x += netForce.x * duration / particle.baseParticle.constant;
-        active.activeVelocity.y += netForce.y * duration / particle.baseParticle.constant;
+        if (!particle.baseParticle.fixedVelocity) {
+            active.activeVelocity.x += netForce.x * duration / particle.baseParticle.constant;
+            active.activeVelocity.y += netForce.y * duration / particle.baseParticle.constant;
+        }
         active.activePosition.x += active.activeVelocity.x * duration;
         active.activePosition.y += active.activeVelocity.y * duration;
         particle.activeState = active;

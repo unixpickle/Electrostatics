@@ -14,6 +14,7 @@
 @synthesize velocityX, velocityY;
 @synthesize constant;
 @synthesize color;
+@synthesize fixedVelocity;
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     if ((self = [super init])) {
@@ -23,6 +24,7 @@
         velocityY = [aDecoder decodeDoubleForKey:@"velocityY"];
         constant = [aDecoder decodeDoubleForKey:@"constant"];
         color = [aDecoder decodeObjectForKey:@"color"];
+        fixedVelocity = [aDecoder decodeBoolForKey:@"fixedVelocity"];
     }
     return self;
 }
@@ -34,6 +36,7 @@
     [aCoder encodeDouble:velocityY forKey:@"velocityY"];
     [aCoder encodeDouble:constant forKey:@"constant"];
     [aCoder encodeObject:color forKey:@"color"];
+    [aCoder encodeBool:fixedVelocity forKey:@"fixedVelocity"];
 }
 
 - (ANVector2D)forceOnParticle:(ANParticle *)particle {

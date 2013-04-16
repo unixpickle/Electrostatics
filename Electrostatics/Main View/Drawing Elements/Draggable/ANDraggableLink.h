@@ -1,22 +1,27 @@
 //
-//  ANDraggableArrow.h
+//  ANDraggableLink.h
 //  Electrostatics
 //
-//  Created by Nichol, Alexander on 2/21/13.
+//  Created by Alex Nichol on 4/16/13.
 //  Copyright (c) 2013 Alex Nichol. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "ANVector2D.h"
 
-@interface ANDraggableArrow : NSObject {
+#define kANDraggableLinkFadeTime 0.2
+
+@interface ANDraggableLink : NSObject {
     CGPoint initialPoint;
-    ANVector2D direction;
+    CGPoint endPoint;
+    
+    // animation
     NSDate * fadeStart;
 }
 
 @property (readonly) CGPoint initialPoint;
-@property (readwrite) ANVector2D direction;
+@property (readwrite) CGPoint endPoint;
+
+- (id)initWithPoint:(CGPoint)theInitPoint;
 
 - (BOOL)shouldDestroy;
 - (void)drawInContext:(CGContextRef)context;

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ANDocumentManager.h"
 #import "ANLiveParticle.h"
+#import "ANLiveSpring.h"
 #import "ANSceneView.h"
 #import "ANParticleViewController.h"
 
@@ -16,6 +17,7 @@
     ANDocumentInfo * info;
     UIBarButtonItem * doneButton;
     NSMutableArray * liveParticles;
+    NSMutableArray * liveSprings;
     ANSceneView * sceneView;
     
     UIToolbar * toolbar;

@@ -20,13 +20,13 @@
     if ((self = [super initWithStyle:UITableViewStyleGrouped])) {
         particle = aParticle;
         self.title = @"Particle Editor";
-        xVelocity = [[ANSelectableTextField alloc] initWithFrame:CGRectMake(100, 10, 95, 30)];
+        xVelocity = [[ANSelectableTextField alloc] initWithFrame:CGRectMake(100, 10, 200, 30)];
         xVelocity.returnKeyType = UIReturnKeyNext;
         xVelocity.textColor = [UIColor blackColor];
-        yVelocity = [[ANSelectableTextField alloc] initWithFrame:CGRectMake(100, 10, 95, 30)];
+        yVelocity = [[ANSelectableTextField alloc] initWithFrame:CGRectMake(100, 10, 200, 30)];
         yVelocity.returnKeyType = UIReturnKeyNext;
         yVelocity.textColor = [UIColor blackColor];
-        mass = [[ANSelectableTextField alloc] initWithFrame:CGRectMake(100, 10, 95, 30)];
+        mass = [[ANSelectableTextField alloc] initWithFrame:CGRectMake(100, 10, 200, 30)];
         mass.returnKeyType = UIReturnKeyNext;
         mass.textColor = [UIColor blackColor];
         
@@ -37,6 +37,12 @@
                          action:@selector(deleteButtonPressed:)
                forControlEvents:UIControlEventTouchUpInside];
         [deleteButton setTitle:@"Delete" forState:UIControlStateNormal];
+        
+        fixedSwitch = [[UISwitch alloc] init];
+        [fixedSwitch setOn:particle.fixedVelocity];
+        [fixedSwitch addTarget:self
+                        action:@selector(fixedSwitchChanged:)
+              forControlEvents:UIControlEventValueChanged];
 
         
         xVelocity.text = [NSString stringWithFormat:@"%0.02f", particle.velocityX];
@@ -48,6 +54,10 @@
 
 - (void)deleteButtonPressed:(id)sender {
     [delegate particleViewController:self deleteParticle:particle];
+}
+
+- (void)fixedSwitchChanged:(id)sender {
+    particle.fixedVelocity = fixedSwitch.isOn;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -62,7 +72,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0) return 3;
+    if (section == 0) return 4;
     return 1;
 }
 
@@ -95,8 +105,11 @@
         [cell.contentView addSubview:mass];
         cell.textLabel.text = @"Mass";
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    } else if (indexPath.row == 3) {
+        cell.accessoryView = fixedSwitch;
+        cell.textLabel.text = @"Fixed Velocity";
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    
     
     return cell;
 }

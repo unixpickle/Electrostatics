@@ -24,6 +24,7 @@
     UITextField * yVelocity;
     UITextField * mass;
     UIButton * deleteButton;
+    UISwitch * fixedSwitch;
     ANParticle * particle;
     
     __weak id<ANParticleViewControllerDelegate> delegate;
@@ -33,5 +34,6 @@
 
 - (id)initWithParticle:(ANParticle *)particle;
 - (void)deleteButtonPressed:(id)sender;
+- (void)fixedSwitchChanged:(id)sender;
 
 @end

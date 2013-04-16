@@ -8,12 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import "ANLiveParticle.h"
+#import "ANDraggableArrow.h"
+#import "ANDraggableSpring.h"
+
+#define kANSceneViewTouchFingerOffset 0
 
 @class ANSceneView;
 
 @protocol ANSceneViewDelegate<NSObject>
 
 - (void)sceneView:(ANSceneView *)sceneView editingParticle:(ANParticle *)particle;
+- (void)sceneView:(ANSceneView *)sceneView springFrom:(ANParticle *)source to:(ANParticle *)dest;
 
 @end
 
@@ -23,16 +28,21 @@
     ANLiveParticle * selectedParticle;
     CGPoint selectionBeginning;
     CGPoint particleBeginning;
-    
+
     NSDate * touchStart;
-    BOOL isDraggingVector;
+    Class draggableClass;
+    BOOL isDraggingLink;
+    ANDraggableLink * draggingLink;
     
+    BOOL isAnimating;
     
     __weak id<ANSceneViewDelegate> delegate;
 }
 
 @property (nonatomic, weak) NSMutableArray * particlesReference;
 @property (nonatomic, weak) id<ANSceneViewDelegate> delegate;
+@property (readwrite) BOOL isAnimating;
+@property (nonatomic, unsafe_unretained) Class draggableClass;
 
 - (id)initWithFrame:(CGRect)frame particles:(NSMutableArray *)particles;
 

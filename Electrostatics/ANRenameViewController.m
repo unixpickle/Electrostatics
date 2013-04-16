@@ -27,7 +27,7 @@
                                                        target:self action:@selector(cancelButtonPressed:)];
         self.navigationItem.leftBarButtonItem = cancelButton;
         self.navigationItem.rightBarButtonItem = saveButton;
-        nameField = [[ANSelectableTextField alloc] initWithFrame:CGRectMake(90, 10, 105, 30)];
+        nameField = [[ANSelectableTextField alloc] initWithFrame:CGRectMake(90, 10, 200, 30)];
         nameField.returnKeyType = UIReturnKeyNext;
         nameField.delegate = self;
         nameField.textColor = [UIColor blackColor];
