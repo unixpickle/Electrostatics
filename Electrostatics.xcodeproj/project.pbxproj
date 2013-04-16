@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2E8723D4171DD1DD00E85C7D /* ANSaveableScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E8723D3171DD1DD00E85C7D /* ANSaveableScene.m */; };
 		FA28D69A171D6B5F006CF269 /* ANSpring.m in Sources */ = {isa = PBXBuildFile; fileRef = FA28D699171D6B5F006CF269 /* ANSpring.m */; };
 		FA28D6A2171D6CD3006CF269 /* ANDraggableArrow.m in Sources */ = {isa = PBXBuildFile; fileRef = FA28D69D171D6CD3006CF269 /* ANDraggableArrow.m */; };
 		FA28D6A3171D6CD3006CF269 /* ANDraggableLink.m in Sources */ = {isa = PBXBuildFile; fileRef = FA28D69F171D6CD3006CF269 /* ANDraggableLink.m */; };
@@ -40,6 +41,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2E8723D2171DD1DD00E85C7D /* ANSaveableScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANSaveableScene.h; sourceTree = "<group>"; };
+		2E8723D3171DD1DD00E85C7D /* ANSaveableScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANSaveableScene.m; sourceTree = "<group>"; };
 		FA28D698171D6B5F006CF269 /* ANSpring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANSpring.h; sourceTree = "<group>"; };
 		FA28D699171D6B5F006CF269 /* ANSpring.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANSpring.m; sourceTree = "<group>"; };
 		FA28D69C171D6CD3006CF269 /* ANDraggableArrow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANDraggableArrow.h; sourceTree = "<group>"; };
@@ -124,6 +127,8 @@
 		FA2B9CBE16D2C9FE00F962D7 /* Document Manager */ = {
 			isa = PBXGroup;
 			children = (
+				2E8723D2171DD1DD00E85C7D /* ANSaveableScene.h */,
+				2E8723D3171DD1DD00E85C7D /* ANSaveableScene.m */,
 				FA2B9CC116D2C9FE00F962D7 /* ANDocumentManager.h */,
 				FA2B9CC216D2C9FE00F962D7 /* ANDocumentManager.m */,
 				FA2B9CBF16D2C9FE00F962D7 /* ANDocumentInfo.h */,
@@ -327,6 +332,7 @@
 				FA28D6A3171D6CD3006CF269 /* ANDraggableLink.m in Sources */,
 				FA28D6A4171D6CD3006CF269 /* ANDraggableSpring.m in Sources */,
 				FA28D6A7171D6CDB006CF269 /* ANLiveSpring.m in Sources */,
+				2E8723D4171DD1DD00E85C7D /* ANSaveableScene.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -24,5 +24,6 @@
 @property (readwrite) BOOL fixedVelocity;
 
 - (ANVector2D)forceOnParticle:(ANParticle *)particle;
+- (CGFloat)distanceToParticle:(ANParticle *)anotherParticle;
 
 @end

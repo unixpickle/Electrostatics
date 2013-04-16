@@ -1,4 +1,12 @@
-#import "ANSavableScene.h"
+//
+//  ANSaveableScene.m
+//  Electrostatics
+//
+//  Created by Alex Nichol on 4/16/13.
+//  Copyright (c) 2013 Alex Nichol. All rights reserved.
+//
+
+#import "ANSaveableScene.h"
 
 @interface ANSaveableScene (Private)
 
@@ -7,7 +15,7 @@
 
 @end
 
-@implementation ANSavableScene
+@implementation ANSaveableScene
 
 @synthesize particles;
 @synthesize springs;
@@ -45,19 +53,19 @@
 #pragma mark - Private -
 
 - (NSDictionary *)dictionaryForSpring:(ANSpring *)spring {
-    NSNumber * index1 = [NSNumber numberWithInteger:[particles indexOfObject:spring.particle1]];
-    NSNumber * index2 = [NSNumber numberWithInteger:[particles indexOfObject:spring.particle2]];
+    NSNumber * index1 = [NSNumber numberWithInteger:[particles indexOfObject:spring.p1]];
+    NSNumber * index2 = [NSNumber numberWithInteger:[particles indexOfObject:spring.p1]];
     return [NSDictionary dictionaryWithObjectsAndKeys:
             @"restLength", [NSNumber numberWithFloat:spring.restLength],
             @"coefficient", [NSNumber numberWithFloat:spring.coefficient],
-            @"p1", index1, @"p2", index2];
+            @"p1", index1, @"p2", index2, nil];
 }
 
 - (ANSpring *)springForParticleInfo:(NSDictionary *)info {
     NSInteger i1 = [[info objectForKey:@"p1"] integerValue];
     NSInteger i2 = [[info objectForKey:@"p2"] integerValue];
-    ANParticle p1 = [particles objectAtIndex:i1];
-    ANParticle p2 = [particles objectAtIndex:i2];
+    ANParticle * p1 = [particles objectAtIndex:i1];
+    ANParticle * p2 = [particles objectAtIndex:i2];
     ANSpring * spring = [[ANSpring alloc] initWithParticle:p1 toParticle:p2];
 	spring.restLength = [[info objectForKey:@"restLength"] floatValue];
 	spring.coefficient = [[info objectForKey:@"coefficient"] floatValue];

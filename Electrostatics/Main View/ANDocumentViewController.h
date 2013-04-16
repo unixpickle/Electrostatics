@@ -12,6 +12,7 @@
 #import "ANLiveSpring.h"
 #import "ANSceneView.h"
 #import "ANParticleViewController.h"
+#import "ANSaveableScene.h"
 
 @interface ANDocumentViewController : UIViewController <ANSceneViewDelegate, ANParticleViewControllerDelegate> {
     ANDocumentInfo * info;

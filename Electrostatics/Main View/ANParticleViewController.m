@@ -83,7 +83,7 @@
             buttonCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ButtonCell"];
         }
         [buttonCell.contentView addSubview:deleteButton];
-        buttonCell.selectionStyle = UITableViewCellEditingStyleNone;
+        buttonCell.selectionStyle = UITableViewCellSelectionStyleNone;
         return buttonCell;
     }
     static NSString * CellIdentifier = @"Cell";

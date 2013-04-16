@@ -16,20 +16,24 @@
 - (void)handleDraggingLinkMove:(CGPoint)touchPoint;
 - (void)handleDraggingLinkEnd:(CGPoint)touchPoint;
 
+- (ANLiveParticle *)particleCloseToPoint:(CGPoint)point;
+
 @end
 
 @implementation ANSceneView
 
 @synthesize isAnimating;
 @synthesize particlesReference;
+@synthesize springsReference;
 @synthesize delegate;
 @synthesize draggableClass;
 
-- (id)initWithFrame:(CGRect)frame particles:(NSMutableArray *)particles; {
+- (id)initWithFrame:(CGRect)frame particles:(NSMutableArray *)particles springs:(NSMutableArray *)springs {
     self = [super initWithFrame:frame];
     if (self) {
         draggableClass = [ANDraggableSpring class];
         particlesReference = particles;
+        springsReference = springs;
         self.backgroundColor = [UIColor clearColor];
         [self setMultipleTouchEnabled:YES];
     }
@@ -38,6 +42,8 @@
 
 - (void)drawRect:(CGRect)rect {
     CGContextRef context = UIGraphicsGetCurrentContext();
+    for (ANLiveSpring * spring in springsReference) {   
+    }
     for (ANLiveParticle * particle in particlesReference) {
         [particle drawRect:rect context:context];
     }
@@ -64,17 +70,9 @@
     
     CGPoint location = [[touches anyObject] locationInView:self];
     location.y -= kANSceneViewTouchFingerOffset;
-    ANLiveParticle * particle = nil;
-    float distance = FLT_MAX;
-    for (ANLiveParticle * aParticle in particlesReference) {
-        ANVector2D dist = ANVector2DMake(aParticle.position.x - location.x, aParticle.position.y - location.y);
-        float magnitude = ANVector2DMagnitude(dist);
-        if (magnitude < distance && magnitude < 30) {
-            particle = aParticle;
-            distance = magnitude;
-        }
-    }
+    ANLiveParticle * particle = [self particleCloseToPoint:location];
     if (!particle) return;
+    
     touchStart = [NSDate date];
     if (touch.tapCount == 1) {
         selectedParticle = particle;
@@ -144,8 +142,33 @@
 
 - (void)handleDraggingLinkEnd:(CGPoint)touchPoint {
     [draggingLink beginOutfade];
-    //selectedParticle.baseParticle.velocityX = arrow.direction.x;
-    //selectedParticle.baseParticle.velocityY = arrow.direction.y;
+    if (draggableClass == [ANDraggableArrow class]) {
+        ANDraggableArrow * arrow = (ANDraggableArrow *)draggingLink;
+        selectedParticle.baseParticle.velocityX = arrow.direction.x;
+        selectedParticle.baseParticle.velocityY = arrow.direction.y;
+    } else if (draggableClass == [ANDraggableSpring class]) {
+        ANDraggableSpring * spring = (ANDraggableSpring *)draggingLink;
+        ANLiveParticle * destination = [self particleCloseToPoint:spring.endPoint];
+        ANLiveParticle * start = selectedParticle;
+        if (!destination) return;
+        [delegate sceneView:self springFrom:start to:destination];
+    }
+}
+
+#pragma mark - Touch Detection -
+
+- (ANLiveParticle *)particleCloseToPoint:(CGPoint)point {
+    ANLiveParticle * particle = nil;
+    float distance = 30;
+    for (ANLiveParticle * aParticle in particlesReference) {
+        ANVector2D dist = ANVector2DMake(aParticle.position.x - point.x, aParticle.position.y - point.y);
+        float magnitude = ANVector2DMagnitude(dist);
+        if (magnitude < distance) {
+            particle = aParticle;
+            distance = magnitude;
+        }
+    }
+    return particle;
 }
 
 @end

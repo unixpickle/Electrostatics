@@ -19,7 +19,11 @@
 }
 
 - (void)drawInContext:(CGContextRef)context {
-    
+    CGContextSetRGBStrokeColor(context, 1, 1, 0, 1);
+    CGContextBeginPath(context);
+    CGContextMoveToPoint(context, particle1.position.x, particle1.position.y);
+    CGContextAddLineToPoint(context, particle2.position.x, particle2.position.y);
+    CGContextStrokePath(context);
 }
 
 @end

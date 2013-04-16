@@ -12,7 +12,9 @@
 @interface ANDocumentViewController (Private)
 
 - (NSArray *)particleList;
+- (NSArray *)springList;
 - (void)saveParticles;
+- (void)loadParticlesFromFile:(NSString *)path;
 
 - (void)animationTimerRoutine;
 
@@ -32,25 +34,18 @@
         
         NSString * filePath = [info filePath];
         if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
-			NSDictionary * saveDict = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
-            NSArray * particles = [saveDict objectForKey:@"particles"];
-			NSArray * springs = [saveDict objectForKey:@"springs"];
-            liveParticles = [[NSMutableArray alloc] init];
-            for (ANParticle * particle in particles) {
-                [liveParticles addObject:[[ANLiveParticle alloc] initWithParticle:particle]];
-            }
-			liveSprings = [[NSMutableArray alloc] init];
-			for (ANSpring * spring in springs) {
-			}
+            [self loadParticlesFromFile:filePath];
         } else {
             liveParticles = [[NSMutableArray alloc] init];
+            liveSprings = [[NSMutableArray alloc] init];
             // TODO: create a default particle here for user friendliness
         }
         
         CGRect sceneViewBounds = self.view.bounds;
         sceneViewBounds.size.height -= 88;
         sceneView = [[ANSceneView alloc] initWithFrame:sceneViewBounds
-                                             particles:liveParticles];
+                                             particles:liveParticles
+                                               springs:liveSprings];
         sceneView.delegate = self;
         [self.view addSubview:sceneView];
         
@@ -129,8 +124,15 @@
     [self.navigationController pushViewController:pvc animated:YES];
 }
 
-- (void)sceneView:(ANSceneView *)sceneView springFrom:(ANParticle *)source to:(ANParticle *)dest {
-    
+- (void)sceneView:(ANSceneView *)_sceneView springFrom:(ANLiveParticle *)source to:(ANLiveParticle *)dest {
+    ANLiveSpring * spring = [[ANLiveSpring alloc] init];
+    ANSpring * baseSpring = [[ANSpring alloc] initWithParticle:source.baseParticle
+                                                    toParticle:dest.baseParticle];
+    spring.spring = baseSpring;
+    spring.particle1 = source;
+    spring.particle2 = dest;
+    [liveSprings addObject:spring];
+    [sceneView setNeedsDisplay];
 }
 
 #pragma mark - Particle Editing -
@@ -161,10 +163,50 @@
     return particles;
 }
 
+- (NSArray *)springList {
+    NSMutableArray * springs = [[NSMutableArray alloc] init];
+    for (ANLiveSpring * liveSpring in liveSprings) {
+        [springs addObject:[liveSpring spring]];
+    }
+    return springs;
+}
+
 - (void)saveParticles {
     NSArray * particles = [self particleList];
+    NSArray * springs = [self springList];
+    
+    ANSaveableScene * scene = [[ANSaveableScene alloc] initWithParticles:particles
+                                                                 springs:springs];
+    
     NSString * path = [info filePath];
-    [NSKeyedArchiver archiveRootObject:particles toFile:path];
+    [NSKeyedArchiver archiveRootObject:scene toFile:path];
+}
+
+- (void)loadParticlesFromFile:(NSString *)filePath {
+    ANSaveableScene * scene = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
+    
+    NSArray * particles = scene.particles;
+    NSArray * springs = scene.springs;
+    liveParticles = [[NSMutableArray alloc] init];
+    for (ANParticle * particle in particles) {
+        [liveParticles addObject:[[ANLiveParticle alloc] initWithParticle:particle]];
+    }
+    
+    liveSprings = [[NSMutableArray alloc] init];
+    for (ANSpring * spring in springs) {
+        ANLiveSpring * liveSpring = [[ANLiveSpring alloc] init];
+        liveSpring.spring = spring;
+        // find the particles
+        for (ANLiveParticle * particle in liveParticles) {
+            if (particle.baseParticle == spring.p1) {
+                liveSpring.particle1 = particle;
+            } else if (particle.baseParticle == spring.p2) {
+                liveSpring.particle2 = particle;
+            }
+        }
+        
+        [liveSprings addObject:liveSpring];
+    }
 }
 
 - (void)animationTimerRoutine {
@@ -186,7 +228,7 @@
             }
             netForce = ANVector2DAdd(netForce, anotherForce);
         }
-		for (ANliveSpring * spring in liveSprings) {
+		for (ANLiveSpring * spring in liveSprings) {
 			if (spring.particle1 == particle || spring.particle2 == particle) {
 				ANVector2D springForce = [spring forceOnParticle:particle];
 				netForce = ANVector2DAdd(netForce, springForce);

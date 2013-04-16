@@ -46,4 +46,10 @@
     return ANVector2DScale(direction, self.constant * particle.constant / pow(distance, 2));
 }
 
+- (CGFloat)distanceToParticle:(ANParticle *)anotherParticle {
+    ANVector2D offset = ANVector2DMake(anotherParticle.positionX - self.positionX,
+                                       anotherParticle.positionY - self.positionY);
+    return ANVector2DMagnitude(offset);
+}
+
 @end
