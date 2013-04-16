@@ -32,11 +32,16 @@
         
         NSString * filePath = [info filePath];
         if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
-            NSArray * particles = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
+			NSDictionary * saveDict = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
+            NSArray * particles = [saveDict objectForKey:@"particles"];
+			NSArray * springs = [saveDict objectForKey:@"springs"];
             liveParticles = [[NSMutableArray alloc] init];
             for (ANParticle * particle in particles) {
                 [liveParticles addObject:[[ANLiveParticle alloc] initWithParticle:particle]];
             }
+			liveSprings = [[NSMutableArray alloc] init];
+			for (ANSpring * spring in springs) {
+			}
         } else {
             liveParticles = [[NSMutableArray alloc] init];
             // TODO: create a default particle here for user friendliness
@@ -181,6 +186,12 @@
             }
             netForce = ANVector2DAdd(netForce, anotherForce);
         }
+		for (ANliveSpring * spring in liveSprings) {
+			if (spring.particle1 == particle || spring.particle2 == particle) {
+				ANVector2D springForce = [spring forceOnParticle:particle];
+				netForce = ANVector2DAdd(netForce, springForce);
+			}
+		}
         ANLiveParticleActive active = particle.activeState;
         if (!particle.baseParticle.fixedVelocity) {
             active.activeVelocity.x += netForce.x * duration / particle.baseParticle.constant;
