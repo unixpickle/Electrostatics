@@ -14,6 +14,7 @@
 @synthesize isActive;
 @synthesize baseParticle;
 @synthesize isHighlighted;
+@synthesize isErring;
 
 - (id)initWithParticle:(ANParticle *)particle {
     if ((self = [super init])) {
@@ -59,7 +60,11 @@
     CGPoint position = [self position];
     CGRect frame = CGRectMake(position.x - 8, position.y - 8, 16, 16);
     if (isActive) {
-        CGContextSetRGBFillColor(context, 1, 0, 0, 1);
+        if (isErring) {
+            CGContextSetRGBFillColor(context, 1, 0, 0, 1);
+        } else {
+            CGContextSetRGBFillColor(context, 0, 1, 0, 1);
+        }
     } else {
         if (isHighlighted) {
             CGContextSetRGBFillColor(context, 0.1, 0.3, 1, 1);

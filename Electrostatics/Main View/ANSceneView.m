@@ -11,11 +11,9 @@
 @interface ANSceneView (Private)
 
 - (void)requestRedraw;
-- (void)handleParticleDrag:(CGPoint)touchPoint;
-
-- (void)handleDraggingLinkMove:(CGPoint)touchPoint;
 - (void)handleDraggingLinkEnd:(CGPoint)touchPoint;
 
+- (id)closestLiveObjectToPoint:(CGPoint)point;
 - (ANLiveParticle *)particleCloseToPoint:(CGPoint)point;
 
 @end
@@ -42,18 +40,20 @@
 
 - (void)drawRect:(CGRect)rect {
     CGContextRef context = UIGraphicsGetCurrentContext();
+    ANLiveParticle * topParticle = touchContext.selectedParticle;
     for (ANLiveSpring * spring in springsReference) {   
         [spring drawInContext:context];
     }
     for (ANLiveParticle * particle in particlesReference) {
-        [particle drawRect:rect context:context];
+        if (particle != topParticle) [particle drawRect:rect context:context];
     }
-    if (draggingLink) {
-        if ([draggingLink shouldDestroy]) {
-            draggingLink = nil;
+    [topParticle drawRect:rect context:context];
+    if (touchContext.draggingLink) {
+        if ([touchContext.draggingLink shouldDestroy]) {
+            touchContext = nil;
         } else {
-            [draggingLink drawInContext:context];
-            if (!isDraggingLink) {
+            [touchContext.draggingLink drawInContext:context];
+            if (!touchContext.isDraggingLink) {
                 [self performSelector:@selector(requestRedraw) withObject:nil afterDelay:(1.0 / 30.0)];
             }
         }
@@ -64,58 +64,47 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     if (isAnimating) return;
-#ifndef DISABLE_DRAGGABLE_VECTOR
-    touchStart = nil;
-#endif
+    
     UITouch * touch = [touches anyObject];
     
     CGPoint location = [[touches anyObject] locationInView:self];
-    location.y -= kANSceneViewTouchFingerOffset;
-    ANLiveParticle * particle = [self particleCloseToPoint:location];
-    if (!particle) return;
+    location.y -= kANTouchContextFingerOffset;
+    id object = [self closestLiveObjectToPoint:location];
+    if (!object) return;
     
-    touchStart = [NSDate date];
-    if (touch.tapCount == 1) {
-        selectedParticle = particle;
-        particle.isHighlighted = YES;
-        [self setNeedsDisplay];
-        selectionBeginning = location;
-        particleBeginning = selectedParticle.position;
-    } else {
-        [delegate sceneView:self editingParticle:particle.baseParticle];
+    if ([object isKindOfClass:[ANLiveSpring class]]) {
+        touchContext = [[ANTouchContext alloc] initWithSpring:object];
+    } else if ([object isKindOfClass:[ANLiveParticle class]]) {
+        ANLiveParticle * particle = object;
+        if (touch.tapCount > 1) {
+            [delegate sceneView:self editingParticle:particle.baseParticle];
+        } else {
+            touchContext = [[ANTouchContext alloc] initWithParticle:particle
+                                                              point:location
+                                                          linkClass:draggableClass];
+        }
     }
+    
+    [self setNeedsDisplay];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
     if (isAnimating) return;
-    
-    if (touchStart) {
-        if ([[NSDate date] timeIntervalSinceDate:touchStart] > 0.5) {
-            isDraggingLink = YES;
-            draggingLink = [[draggableClass alloc] initWithPoint:particleBeginning];
-        } else {
-            isDraggingLink = NO;
-        }
-        touchStart = nil;
-    }
-    CGPoint touchPoint = [[touches anyObject] locationInView:self];
-    touchPoint.y -= kANSceneViewTouchFingerOffset;
-    if (selectedParticle && !isDraggingLink) {
-        [self handleParticleDrag:touchPoint];
-    } else if (selectedParticle && isDraggingLink) {
-        [self handleDraggingLinkMove:touchPoint];
-    }
+    [touchContext handleTouchMoved:[[touches anyObject] locationInView:self]];
+    [self setNeedsDisplay];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     if (isAnimating) return;
-    if (isDraggingLink) {
-        [self handleDraggingLinkEnd:[[touches anyObject] locationInView:self]];
-        isDraggingLink = NO;
+    if (touchContext.contextType == ANTouchContextTypeSpring) {
+        if (touchContext.selectedSpring.isHighlighted) {
+            [delegate sceneView:self editingSpring:touchContext.selectedSpring.spring];
+        }
     }
-    touchStart = nil;
-    selectedParticle.isHighlighted = NO;
-    selectedParticle = nil;
+    if (touchContext.isDraggingLink) {
+        [self handleDraggingLinkEnd:[[touches anyObject] locationInView:self]];
+    }
+    [touchContext handleTouchEnded];
     [self setNeedsDisplay];
 }
 
@@ -125,38 +114,46 @@
     [self setNeedsDisplay];
 }
 
-- (void)handleParticleDrag:(CGPoint)touchPoint {
-    CGPoint newPoint = particleBeginning;
-    newPoint.x += touchPoint.x - selectionBeginning.x;
-    newPoint.y += touchPoint.y - selectionBeginning.y;
-    selectedParticle.baseParticle.positionX = newPoint.x;
-    selectedParticle.baseParticle.positionY = newPoint.y;
-    [self setNeedsDisplay];
-}
-
 #pragma mark Arrow Dragging
 
-- (void)handleDraggingLinkMove:(CGPoint)touchPoint {
-    draggingLink.endPoint = touchPoint;
-    [self setNeedsDisplay];
-}
-
 - (void)handleDraggingLinkEnd:(CGPoint)touchPoint {
-    [draggingLink beginOutfade];
+    [touchContext.draggingLink beginOutfade];
     if (draggableClass == [ANDraggableArrow class]) {
-        ANDraggableArrow * arrow = (ANDraggableArrow *)draggingLink;
-        selectedParticle.baseParticle.velocityX = arrow.direction.x;
-        selectedParticle.baseParticle.velocityY = arrow.direction.y;
+        ANDraggableArrow * arrow = (ANDraggableArrow *)touchContext.draggingLink;
+        touchContext.selectedParticle.baseParticle.velocityX = arrow.direction.x;
+        touchContext.selectedParticle.baseParticle.velocityY = arrow.direction.y;
     } else if (draggableClass == [ANDraggableSpring class]) {
-        ANDraggableSpring * spring = (ANDraggableSpring *)draggingLink;
+        ANDraggableSpring * spring = (ANDraggableSpring *)touchContext.draggingLink;
         ANLiveParticle * destination = [self particleCloseToPoint:spring.endPoint];
-        ANLiveParticle * start = selectedParticle;
-        if (!destination) return;
+        ANLiveParticle * start = touchContext.selectedParticle;
+        if (!destination || start == destination) return;
         [delegate sceneView:self springFrom:start to:destination];
     }
 }
 
 #pragma mark - Touch Detection -
+
+- (id)closestLiveObjectToPoint:(CGPoint)point {
+    id object = nil;
+    float distance = 30;
+    for (ANLiveParticle * aParticle in particlesReference) {
+        ANVector2D dist = ANVector2DMake(aParticle.position.x - point.x, aParticle.position.y - point.y);
+        float magnitude = ANVector2DMagnitude(dist);
+        if (magnitude < distance) {
+            object = aParticle;
+            distance = magnitude;
+        }
+    }
+    if (object && distance < 25) return object;
+    for (ANLiveSpring * spring in springsReference) {
+        float closest = [spring closestDistanceToPoint:point];
+        if (closest / 2 < distance) {
+            object = spring;
+            distance = closest;
+        }
+    }
+    return object;
+}
 
 - (ANLiveParticle *)particleCloseToPoint:(CGPoint)point {
     ANLiveParticle * particle = nil;

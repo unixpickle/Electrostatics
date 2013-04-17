@@ -20,7 +20,7 @@
         p1 = theP1;
         p2 = theP2;
         restLength = [theP1 distanceToParticle:theP2];
-        coefficient = 1;
+        coefficient = 30;
     }
     return self;
 }

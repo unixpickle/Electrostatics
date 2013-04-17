@@ -21,12 +21,14 @@ typedef struct {
     ANParticle * baseParticle;
     
     BOOL isHighlighted;
+    BOOL isErring;
 }
 
 @property (readwrite) ANLiveParticleActive activeState;
 @property (readwrite, setter=setActive:) BOOL isActive;
 @property (nonatomic, retain) ANParticle * baseParticle;
 @property (readwrite, setter=setHighlighted:) BOOL isHighlighted;
+@property (readwrite, setter=setErring:) BOOL isErring;
 
 - (id)initWithParticle:(ANParticle *)particle;
 

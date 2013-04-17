@@ -54,11 +54,11 @@
 
 - (NSDictionary *)dictionaryForSpring:(ANSpring *)spring {
     NSNumber * index1 = [NSNumber numberWithInteger:[particles indexOfObject:spring.p1]];
-    NSNumber * index2 = [NSNumber numberWithInteger:[particles indexOfObject:spring.p1]];
+    NSNumber * index2 = [NSNumber numberWithInteger:[particles indexOfObject:spring.p2]];
     return [NSDictionary dictionaryWithObjectsAndKeys:
-            @"restLength", [NSNumber numberWithFloat:spring.restLength],
-            @"coefficient", [NSNumber numberWithFloat:spring.coefficient],
-            @"p1", index1, @"p2", index2, nil];
+            [NSNumber numberWithFloat:spring.restLength], @"restLength",
+            [NSNumber numberWithFloat:spring.coefficient], @"coefficient",
+            index1, @"p1", index2, @"p2", nil];
 }
 
 - (ANSpring *)springForParticleInfo:(NSDictionary *)info {

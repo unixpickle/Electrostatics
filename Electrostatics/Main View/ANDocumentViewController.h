@@ -11,10 +11,12 @@
 #import "ANLiveParticle.h"
 #import "ANLiveSpring.h"
 #import "ANSceneView.h"
-#import "ANParticleViewController.h"
 #import "ANSaveableScene.h"
 
-@interface ANDocumentViewController : UIViewController <ANSceneViewDelegate, ANParticleViewControllerDelegate> {
+#import "ANParticleViewController.h"
+#import "ANSpringViewController.h"
+
+@interface ANDocumentViewController : UIViewController <ANSceneViewDelegate, ANParticleViewControllerDelegate, ANSpringViewControllerDelegate> {
     ANDocumentInfo * info;
     UIBarButtonItem * doneButton;
     NSMutableArray * liveParticles;

@@ -13,6 +13,8 @@
 		FA28D6A3171D6CD3006CF269 /* ANDraggableLink.m in Sources */ = {isa = PBXBuildFile; fileRef = FA28D69F171D6CD3006CF269 /* ANDraggableLink.m */; };
 		FA28D6A4171D6CD3006CF269 /* ANDraggableSpring.m in Sources */ = {isa = PBXBuildFile; fileRef = FA28D6A1171D6CD3006CF269 /* ANDraggableSpring.m */; };
 		FA28D6A7171D6CDB006CF269 /* ANLiveSpring.m in Sources */ = {isa = PBXBuildFile; fileRef = FA28D6A6171D6CDB006CF269 /* ANLiveSpring.m */; };
+		FA28D6AA171E0BE7006CF269 /* ANTouchContext.m in Sources */ = {isa = PBXBuildFile; fileRef = FA28D6A9171E0BE7006CF269 /* ANTouchContext.m */; };
+		FA28D6AD171E144D006CF269 /* ANSpringViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA28D6AC171E144C006CF269 /* ANSpringViewController.m */; };
 		FA2B9CB316D2C6B400F962D7 /* dotted_box.png in Resources */ = {isa = PBXBuildFile; fileRef = FA2B9CB116D2C6B400F962D7 /* dotted_box.png */; };
 		FA2B9CB416D2C6B400F962D7 /* dotted_box_down.png in Resources */ = {isa = PBXBuildFile; fileRef = FA2B9CB216D2C6B400F962D7 /* dotted_box_down.png */; };
 		FA2B9CB716D2C6D800F962D7 /* ANHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA2B9CB616D2C6D800F962D7 /* ANHomeViewController.m */; };
@@ -53,6 +55,10 @@
 		FA28D6A1171D6CD3006CF269 /* ANDraggableSpring.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANDraggableSpring.m; sourceTree = "<group>"; };
 		FA28D6A5171D6CDB006CF269 /* ANLiveSpring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLiveSpring.h; sourceTree = "<group>"; };
 		FA28D6A6171D6CDB006CF269 /* ANLiveSpring.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANLiveSpring.m; sourceTree = "<group>"; };
+		FA28D6A8171E0BE7006CF269 /* ANTouchContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTouchContext.h; sourceTree = "<group>"; };
+		FA28D6A9171E0BE7006CF269 /* ANTouchContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTouchContext.m; sourceTree = "<group>"; };
+		FA28D6AB171E144C006CF269 /* ANSpringViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANSpringViewController.h; sourceTree = "<group>"; };
+		FA28D6AC171E144C006CF269 /* ANSpringViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANSpringViewController.m; sourceTree = "<group>"; };
 		FA2B9CB116D2C6B400F962D7 /* dotted_box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dotted_box.png; sourceTree = "<group>"; };
 		FA2B9CB216D2C6B400F962D7 /* dotted_box_down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dotted_box_down.png; sourceTree = "<group>"; };
 		FA2B9CB516D2C6D800F962D7 /* ANHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANHomeViewController.h; sourceTree = "<group>"; };
@@ -147,6 +153,10 @@
 				FA2B9CD716D2E91200F962D7 /* ANSceneView.m */,
 				FACFF98016D309650067BE54 /* ANParticleViewController.h */,
 				FACFF98116D309650067BE54 /* ANParticleViewController.m */,
+				FA28D6AB171E144C006CF269 /* ANSpringViewController.h */,
+				FA28D6AC171E144C006CF269 /* ANSpringViewController.m */,
+				FA28D6A8171E0BE7006CF269 /* ANTouchContext.h */,
+				FA28D6A9171E0BE7006CF269 /* ANTouchContext.m */,
 			);
 			path = "Main View";
 			sourceTree = "<group>";
@@ -333,6 +343,8 @@
 				FA28D6A4171D6CD3006CF269 /* ANDraggableSpring.m in Sources */,
 				FA28D6A7171D6CDB006CF269 /* ANLiveSpring.m in Sources */,
 				2E8723D4171DD1DD00E85C7D /* ANSaveableScene.m in Sources */,
+				FA28D6AA171E0BE7006CF269 /* ANTouchContext.m in Sources */,
+				FA28D6AD171E144D006CF269 /* ANSpringViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

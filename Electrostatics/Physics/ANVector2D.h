@@ -17,3 +17,4 @@ ANVector2D ANVector2DMake(CGFloat x, CGFloat y);
 ANVector2D ANVector2DAdd(ANVector2D v1, ANVector2D v2);
 ANVector2D ANVector2DScale(ANVector2D v, CGFloat scalar);
 CGFloat ANVector2DMagnitude(ANVector2D v);
+CGFloat ANVector2DDot(ANVector2D v1, ANVector2D v2);

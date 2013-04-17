@@ -19,7 +19,7 @@
 
 @end
 
-@interface ANParticleViewController : UITableViewController {
+@interface ANParticleViewController : UITableViewController <UITextFieldDelegate> {
     UITextField * xVelocity;
     UITextField * yVelocity;
     UITextField * mass;

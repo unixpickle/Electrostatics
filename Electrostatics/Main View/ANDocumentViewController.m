@@ -86,9 +86,11 @@
     [sceneView setNeedsDisplay];
 }
 
+#pragma mark - Play & Stop -
+
 - (void)playButtonPressed:(id)sender {
     sceneView.isAnimating = YES;
-    [toolbar setItems:[NSArray arrayWithObjects:stopButton, spaceItem, addButton, nil] animated:YES];
+    [toolbar setItems:[NSArray arrayWithObjects:stopButton, nil] animated:YES];
     lastTick = nil;
     animationTimer = [NSTimer scheduledTimerWithTimeInterval:(1.0 / 60.0)
                                                       target:self
@@ -124,6 +126,12 @@
     [self.navigationController pushViewController:pvc animated:YES];
 }
 
+- (void)sceneView:(ANSceneView *)sceneView editingSpring:(ANSpring *)spring {
+    ANSpringViewController * svc = [[ANSpringViewController alloc] initWithSpring:spring];
+    svc.delegate = self;
+    [self.navigationController pushViewController:svc animated:YES];
+}
+
 - (void)sceneView:(ANSceneView *)_sceneView springFrom:(ANLiveParticle *)source to:(ANLiveParticle *)dest {
     ANLiveSpring * spring = [[ANLiveSpring alloc] init];
     ANSpring * baseSpring = [[ANSpring alloc] initWithParticle:source.baseParticle
@@ -138,7 +146,6 @@
 #pragma mark - Particle Editing -
 
 - (void)particleViewControllerDismissed:(ANParticleViewController *)pvc {
-    //[self dismissViewControllerAnimated:YES completion:NULL];
     [sceneView setNeedsDisplay];
 }
 
@@ -146,6 +153,30 @@
     for (int i = 0; i < [liveParticles count]; i++) {
         if ([[liveParticles objectAtIndex:i] baseParticle] == particle) {
             [liveParticles removeObjectAtIndex:i];
+            break;
+        }
+    }
+    for (int i = 0; i < [liveSprings count]; i++) {
+        ANLiveSpring * spring = [liveSprings objectAtIndex:i];
+        if (spring.spring.p1 == particle || spring.spring.p2 == particle) {
+            [liveSprings removeObjectAtIndex:i];
+            i--;
+        }
+    }
+    [sceneView setNeedsDisplay];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - Spring Editing -
+
+- (void)springViewControllerDismissed:(ANSpringViewController *)svc {
+    [sceneView setNeedsDisplay];
+}
+
+- (void)springViewController:(ANSpringViewController *)svc deletedSpring:(ANSpring *)spring {
+    for (int i = 0; i < [liveSprings count]; i++) {
+        if ([[liveSprings objectAtIndex:i] spring] == spring) {
+            [liveSprings removeObjectAtIndex:i];
             break;
         }
     }
@@ -219,13 +250,17 @@
     lastTick = now;
     
     for (ANLiveParticle * particle in liveParticles) {
+        BOOL isErring = NO;
         ANVector2D netForce = ANVector2DMake(0, 0);
         for (ANLiveParticle * anotherParticle in liveParticles) {
             if (anotherParticle == particle) continue;
-            ANVector2D anotherForce = [anotherParticle forceOnParticle:particle];
-            if (ANVector2DMagnitude(anotherForce) > pow(10, 20)) {
+            ANVector2D distanceVector = ANVector2DMake(particle.position.x - anotherParticle.position.x,
+                                                       particle.position.y - anotherParticle.position.y);
+            if (ANVector2DMagnitude(distanceVector) < 10) {
+                isErring = YES;
                 continue;
             }
+            ANVector2D anotherForce = [anotherParticle forceOnParticle:particle];
             netForce = ANVector2DAdd(netForce, anotherForce);
         }
 		for (ANLiveSpring * spring in liveSprings) {
@@ -242,6 +277,12 @@
         active.activePosition.x += active.activeVelocity.x * duration;
         active.activePosition.y += active.activeVelocity.y * duration;
         particle.activeState = active;
+        
+        if (isErring) {
+            particle.isErring = YES;
+        } else {
+            particle.isErring = NO;
+        }
     }
     
     [sceneView setNeedsDisplay];

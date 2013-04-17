@@ -23,12 +23,15 @@
         xVelocity = [[ANSelectableTextField alloc] initWithFrame:CGRectMake(100, 10, 200, 30)];
         xVelocity.returnKeyType = UIReturnKeyNext;
         xVelocity.textColor = [UIColor blackColor];
+        xVelocity.delegate = self;
         yVelocity = [[ANSelectableTextField alloc] initWithFrame:CGRectMake(100, 10, 200, 30)];
         yVelocity.returnKeyType = UIReturnKeyNext;
         yVelocity.textColor = [UIColor blackColor];
+        yVelocity.delegate = self;
         mass = [[ANSelectableTextField alloc] initWithFrame:CGRectMake(100, 10, 200, 30)];
         mass.returnKeyType = UIReturnKeyNext;
         mass.textColor = [UIColor blackColor];
+        mass.delegate = self;
         
         deleteButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         deleteButton.frame = CGRectMake(0, 0, 300, 44);
@@ -58,6 +61,17 @@
 
 - (void)fixedSwitchChanged:(id)sender {
     particle.fixedVelocity = fixedSwitch.isOn;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (textField == xVelocity) {
+        [yVelocity becomeFirstResponder];
+    } else if (textField == yVelocity) {
+        [mass becomeFirstResponder];
+    } else {
+        [xVelocity becomeFirstResponder];
+    }
+    return NO;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -96,20 +110,17 @@
     if (indexPath.row == 0) {
         [cell.contentView addSubview:xVelocity];
         cell.textLabel.text = @"X Velocity";
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     } else if (indexPath.row == 1) {
         [cell.contentView addSubview:yVelocity];
         cell.textLabel.text = @"Y Velocity";
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     } else if (indexPath.row == 2) {
         [cell.contentView addSubview:mass];
         cell.textLabel.text = @"Mass";
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     } else if (indexPath.row == 3) {
         cell.accessoryView = fixedSwitch;
         cell.textLabel.text = @"Fixed Velocity";
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
 }

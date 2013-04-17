@@ -32,3 +32,7 @@ ANVector2D ANVector2DScale(ANVector2D v, CGFloat scalar) {
 CGFloat ANVector2DMagnitude(ANVector2D v) {
     return sqrt(v.x*v.x + v.y*v.y);
 }
+
+CGFloat ANVector2DDot(ANVector2D v1, ANVector2D v2) {
+    return v1.x * v2.x + v1.y * v2.y;
+}
